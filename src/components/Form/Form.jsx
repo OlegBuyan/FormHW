@@ -1,69 +1,47 @@
-import { useState, useRef } from "react";
+import { useRef, useState } from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { FormLayout } from "./FormLayout/FormLayout";
-import {
-  validationOnBlur,
-  validator,
-  isFormIncomplete,
-} from "./formFunction/validators";
+import { schema } from "./formFunction/schema";
 import { sendDate } from "./formFunction/data";
 
 export const Form = () => {
   const submitBtnRef = useRef(null);
+  const [isFormDone, setIsFormDone] = useState(false);
 
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-    repeatPassword: "",
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+    reset,
+  } = useForm({
+    resolver: yupResolver(schema),
+    mode: "onChange",
   });
 
-  const [isFormDone, setisFormDone] = useState(false);
+  if (isValid) {
+    setTimeout(() => {
+      submitBtnRef.current.focus();
+    }, 0);
+  }
 
-  const [fieldError, setFieldError] = useState(null);
-
-  const { email, password, repeatPassword } = formData;
-
-  const isDisabled = fieldError !== null || isFormIncomplete(formData);
-
-  const onChange = ({ target }) => {
-    setFormData({ ...formData, [target.name]: target.value });
-
-    setisFormDone(false);
-
-    return setFieldError(
-      validator(target.value, target.name, password, submitBtnRef)
-    );
-  };
-
-  const onBlur = ({ target }) =>
-    setFieldError(validationOnBlur(target.value, target.name, repeatPassword));
-
-  const onSubmit = (event) => {
-    event.preventDefault();
-    return (
-      sendDate({ email, password }),
-      setisFormDone(true),
-      setFormData({
-        email: "",
-        password: "",
-        repeatPassword: "",
-      })
-    );
+  const onSubmit = (data) => {
+    sendDate(data);
+    setIsFormDone(true);
+    reset();
+    setTimeout(() => {
+      setIsFormDone(false);
+    }, 1000);
   };
 
   return (
     <FormLayout
-      isFormDone={isFormDone}
-      isDisabled={isDisabled}
+      register={register}
+      errors={errors}
       submitBtnRef={submitBtnRef}
-      formData={formData}
-      setFormData={setFormData}
-      fieldError={fieldError}
-      email={email}
-      password={password}
-      repeatPassword={repeatPassword}
-      onBlur={onBlur}
-      onChange={onChange}
-      onSubmit={onSubmit}
+      onSubmit={handleSubmit(onSubmit)}
+      isFormDone={isFormDone}
+      isDisabled={!isValid}
     />
   );
 };

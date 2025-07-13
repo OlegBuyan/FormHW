@@ -6,10 +6,8 @@ export const FormBtnLayout = ({
   ref,
 }) => {
   return (
-    <>
-      <button ref={ref} className={className} disabled={disabled} type={type}>
-        {children}
-      </button>
-    </>
+    <button ref={ref} className={className} disabled={disabled} type={type}>
+      {children}
+    </button>
   );
 };

@@ -1,23 +1,21 @@
 export const FormFieldLayout = ({
+  htmlFor,
   type,
   name,
-  value,
   children,
-  className = "",
-  onChange,
-  onBlur,
+  error,
+  register,
 }) => {
   return (
     <>
-      <label htmlFor={name}>{children}</label>
+      <label htmlFor={htmlFor}>{children}</label>
       <input
-        className={className}
+        id={htmlFor}
         type={type}
-        name={name}
-        value={value}
-        onChange={onChange}
-        onBlur={onBlur}
+        {...register(name)}
+        className="bg-white mb-1 mt-1 p-1 rounded w-full"
       />
+      {error && <p className="text-xs text-red-600">{error}</p>}
     </>
   );
 };
