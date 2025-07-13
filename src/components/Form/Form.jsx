@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { FormLayout } from "./FormLayout/FormLayout";
-import { schema } from "./formFunction/schema";
+import { validator } from "./formFunction/validator";
 import { sendDate } from "./formFunction/data";
 
 export const Form = () => {
@@ -15,7 +15,7 @@ export const Form = () => {
     formState: { errors, isValid },
     reset,
   } = useForm({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(validator),
     mode: "onChange",
   });
 

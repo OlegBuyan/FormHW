@@ -1,6 +1,6 @@
 import * as yup from "yup";
 import { ERORR_MESSAGE } from "../../../constant/errorMessage";
-export const schema = yup.object().shape({
+export const validator = yup.object().shape({
   email: yup
     .string()
     .email(ERORR_MESSAGE.VALID_EMAIL)
