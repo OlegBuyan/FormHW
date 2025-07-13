@@ -3,7 +3,6 @@ export const FormFieldLayout = ({
   type,
   name,
   children,
-  error,
   register,
 }) => {
   return (
@@ -15,7 +14,6 @@ export const FormFieldLayout = ({
         {...register(name)}
         className="bg-white mb-1 mt-1 p-1 rounded w-full"
       />
-      {error && <p className="text-xs text-red-600">{error}</p>}
     </>
   );
 };

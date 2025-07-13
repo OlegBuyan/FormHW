@@ -1,19 +1,17 @@
 import * as yup from "yup";
-
+import { ERORR_MESSAGE } from "../../../constant/errorMessage";
 export const schema = yup.object().shape({
   email: yup
     .string()
-    .required("Email обязателен")
-    .email("Введите корректный email")
-    .matches(/^[\w.-]+@[\w.-]+\.[a-zA-Z]{2,}$/, "Неверный формат email"),
+    .email(ERORR_MESSAGE.VALID_EMAIL)
+    .matches(/^[^\sа-яА-ЯёЁ]*$/, ERORR_MESSAGE.VALID_SYMBOLS),
   password: yup
     .string()
-    .required("Пароль обязателен")
-    .min(3, "Минимум 3 символа")
-    .max(20, "Максимум 20 символов")
-    .matches(/^[^\sа-яА-ЯёЁ]*$/, "Недопустимые символы"),
+    .min(4, ERORR_MESSAGE.MIN)
+    .max(20, ERORR_MESSAGE.MAX)
+    .matches(/^[^\sа-яА-ЯёЁ]*$/, ERORR_MESSAGE.VALID_SYMBOLS),
   repeatPassword: yup
     .string()
-    .oneOf([yup.ref("password")], "Пароли не совпадают")
-    .required("Повтор пароля обязателен"),
+    .oneOf([yup.ref("password")], ERORR_MESSAGE.REPEAT_PASS)
+    .matches(/^[^\sа-яА-ЯёЁ]*$/, ERORR_MESSAGE.VALID_SYMBOLS),
 });
