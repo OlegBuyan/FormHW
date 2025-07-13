@@ -8,7 +8,6 @@ export const FormLayout = ({
   submitBtnRef,
   isDisabled,
   onChange,
-  isFormIncomplete,
   isFormDone,
   ...props
 }) => {

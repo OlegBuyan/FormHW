@@ -29,3 +29,5 @@ export const validationOnBlur = (value, name, repeatPassword) => {
   }
   return newError;
 };
+export const isFormIncomplete = (formData) =>
+  Object.values(formData).some((value) => value.trim() === "");

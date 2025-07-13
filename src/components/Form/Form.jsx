@@ -1,6 +1,10 @@
 import { useState, useRef } from "react";
 import { FormLayout } from "./FormLayout/FormLayout";
-import { validationOnBlur, validator } from "./formFunction/validators";
+import {
+  validationOnBlur,
+  validator,
+  isFormIncomplete,
+} from "./formFunction/validators";
 import { sendDate } from "./formFunction/data";
 
 export const Form = () => {
@@ -18,11 +22,7 @@ export const Form = () => {
 
   const { email, password, repeatPassword } = formData;
 
-  const isFormIncomplete = Object.values(formData).some(
-    (value) => value.trim() === ""
-  );
-
-  const isDisabled = fieldError !== null || isFormIncomplete;
+  const isDisabled = fieldError !== null || isFormIncomplete(formData);
 
   const onChange = ({ target }) => {
     setFormData({ ...formData, [target.name]: target.value });
@@ -55,16 +55,15 @@ export const Form = () => {
       isFormDone={isFormDone}
       isDisabled={isDisabled}
       submitBtnRef={submitBtnRef}
-      onBlur={onBlur}
-      onChange={onChange}
       formData={formData}
       setFormData={setFormData}
-      onSubmit={onSubmit}
+      fieldError={fieldError}
       email={email}
       password={password}
       repeatPassword={repeatPassword}
-      fieldError={fieldError}
-      isFormIncomplete={isFormIncomplete}
+      onBlur={onBlur}
+      onChange={onChange}
+      onSubmit={onSubmit}
     />
   );
 };
