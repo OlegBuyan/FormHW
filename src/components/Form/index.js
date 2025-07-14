@@ -5,3 +5,4 @@ export * from "./FormLayout/FormBtnLayout.jsx";
 export * from "./formFunction/data.js";
 export * from "./FormLayout/FormMessage .jsx";
 export * from "./formFunction/validator.js";
+export * from "./FormLayout/FormSample.jsx";

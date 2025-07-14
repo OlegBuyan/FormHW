@@ -1,9 +1,9 @@
 import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { FormLayout } from "./FormLayout/FormLayout";
 import { validator } from "./formFunction/validator";
 import { sendDate } from "./formFunction/data";
+import { FormSample } from "./FormLayout/FormSample";
 
 export const Form = () => {
   const submitBtnRef = useRef(null);
@@ -19,11 +19,11 @@ export const Form = () => {
     mode: "onChange",
   });
 
-  if (isValid) {
-    setTimeout(() => {
-      submitBtnRef.current.focus();
-    }, 0);
-  }
+  // if (isValid) {
+  //   setTimeout(() => {
+  //     submitBtnRef.current.focus();
+  //   }, 0);
+  // }
 
   const onSubmit = (data) => {
     sendDate(data);
@@ -35,7 +35,7 @@ export const Form = () => {
   };
 
   return (
-    <FormLayout
+    <FormSample
       register={register}
       errors={errors}
       submitBtnRef={submitBtnRef}
